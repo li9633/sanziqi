@@ -1,4 +1,4 @@
-#include "game.h"
+﻿#include "game.h"
 
 short Curr_BoradRow = MIN_ROW;		//初始化棋盘默认行数
 short Curr_BoradCol = MIN_COL;		//初始化棋盘默认列数

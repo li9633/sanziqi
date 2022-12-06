@@ -1,4 +1,4 @@
-#ifndef __GAME_H__
+﻿#ifndef __GAME_H__
 #define __GAME_H__	//避免重复包含头文件
 #define _CRT_SECURE_NO_WARNINGS 1
 #include <stdio.h>
