@@ -12,7 +12,7 @@ void game()		//开始游戏
 {
 	printf("游戏正在初始化...！\n");
 	char board[MAX_ROW][MAX_COL];
-	Sleep(700);
+	Sleep(500);
 	system("cls");
 	char ret = ' ';	//初始化输赢判断函数返回值
 	GameRound = 0;	//初始化游戏回合
@@ -248,7 +248,7 @@ void start()	//进行选择
 				int sec_user_select = -1;
 				while(1)
 				{
-					printf("输入1设置 棋盘的行与列 输入2设置玩家或电脑谁先走\n开始输入->:");
+					printf("输入 1 设置 棋盘的行与列 \n输入 2 设置 玩家或电脑谁先走\n开始输入->:");
 					scanf("%d", &sec_user_select);
 					if (sec_user_select == 1)
 					{
@@ -256,7 +256,7 @@ void start()	//进行选择
 						short Set_BoradCol = 0;
 						printf("输入要设置的行数与列数\n");
 						printf("输入4 4 则设置为4行4列\n");
-						printf("设置的行数与列数不能超过128\n");
+						printf("设置的行数与列数不能超过 %d 行,不能低于 %d 行\n", (MAX_COL + MAX_ROW) / 2, (MIN_ROW + MIN_COL) / 2);
 						scanf("%hd %hd", &Set_BoradRow, &Set_BoradCol);
 						SetBoardRowAndCol(Set_BoradRow, Set_BoradCol);
 						break;
@@ -264,7 +264,7 @@ void start()	//进行选择
 					else if (sec_user_select == 2)
 					{
 						int PlaerOrComputer = -1;
-						printf("输入1代表玩家先走，输入非1的数字设置为电脑先走\n开始输入->:");
+						printf("输入1代表玩家先走\n输入非1的数字设置为电脑先走\n开始输入->:");
 						scanf("%d", &PlaerOrComputer);
 						if (PlaerOrComputer != -1 && PlaerOrComputer == _PLAYER_FIRST_MOVE)
 						{

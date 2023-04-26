@@ -5,8 +5,8 @@
 #include <Windows.h>
 #include <stdlib.h>
 #include <time.h>
-#define MAX_ROW 128			//定义最大棋盘行数
-#define MAX_COL 128			//定义最大棋盘列数
+#define MAX_ROW	10			//定义最大棋盘行数
+#define MAX_COL 10			//定义最大棋盘列数
 #define MIN_ROW 3			//定义最小棋盘行数
 #define MIN_COL 3			//定义最小棋盘列数
 
@@ -14,11 +14,16 @@
 #define _COMPUTER_FIRST_MOVE 0	//定义电脑先走等于0
 
 
+
+
 extern short Curr_BoradRow;			//声明外部全局变量 当前棋盘行数
 extern short Curr_BoradCol;			//声明外部全局变量 当前棋盘列数
 extern _Bool isPlayerFirstMove;		//声明外部全局变量 是玩家先走
 extern int GameRound;				//声明外部全局变量 游戏回合数
+extern char CharForPlayerOrComputer[2];		//声明外部全局变量 电脑和玩家的棋子
 
+extern int Computer_Step_MoveRow;
+extern int Computer_Step_MoveCol;
 
 
 void Iniboard(char board[MAX_ROW][MAX_COL], short row, short col);		//声明 初始化棋盘函数
@@ -39,6 +44,10 @@ char WhoIsWin(char board[MAX_ROW][MAX_COL], short Curr_BoradRow, short Curr_Bora
 void SetPlayerFirstMoveOrComputerFirstMove(_Bool IsSetValue);		//声明  设置玩家先移动或者电脑先移动函数
 
 int BoardIsFull(char board[MAX_ROW][MAX_COL], short Curr_BoradRow, short Curr_BoradCol);	//声明  设置棋盘是否已满函数
+
+
+void DiskplayComputer_Step(int Computer_Step_MoveRow, int Computer_Step_MoveCol);		//声明 显示游戏棋子走势
+
 
 
 

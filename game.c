@@ -4,7 +4,12 @@ short Curr_BoradRow = MIN_ROW;		//初始化棋盘默认行数
 short Curr_BoradCol = MIN_COL;		//初始化棋盘默认列数
 _Bool isPlayerFirstMove = _PLAYER_FIRST_MOVE;	//初始化游戏玩家先走
 int GameRound = 0;	//初始化游戏回合
-void Iniboard(char board[MAX_ROW][MAX_COL], short row, short col)	//便利每个元素 并赋值为‘ ’空格 来进行初始化
+char CharForPlayerOrComputer[2] = { '#','*' };	//初始化电脑和玩家的棋子
+
+int Computer_Step_MoveRow = 0;
+int Computer_Step_MoveCol = 0;
+
+void Iniboard(char board[MAX_ROW][MAX_COL], short row, short col)	//遍历每个元素 并赋值为‘ ’空格 来进行初始化
 {
 	for (int i = 0; i < row; i++)
 	{
@@ -131,6 +136,12 @@ int PlaerMove(char board[MAX_ROW][MAX_COL], short Curr_BoradRow, short Curr_Bora
 
 
 		printf("请输入要下棋的坐标 输入方式为 行 列\n例子 1 2 设置1行2列的数据为#\n");
+		if (GameRound % 2 != 0)
+		{
+			DiskplayComputer_Step(Computer_Step_MoveRow, Computer_Step_MoveCol);
+		}
+
+
 		scanf("%hd %hd", &Move_Row, &Move_Col);
 		if ((Move_Row >= 1 && Move_Row <= Curr_BoradRow) && (Move_Col >= 1 && Move_Col <= Curr_BoradCol))
 		{
@@ -162,13 +173,19 @@ _Bool ComputerMove(char board[MAX_ROW][MAX_COL], short Curr_BoradRow, short Curr
 	* 产生两个随机值分别是 行 列 但产生的行与列要大于等于0且要小于等于棋盘的 行与列
 	* 如果产生的随机值 对棋盘 来说是合法的
 	* 那么就判断 该位置是不是被走过的位置，如果没有走过 就下棋 并结束该函数 返回TRUE 代表已下棋
-	* 如果已经是走过的位置 就重新生成两个行与列随机值
+	* 如果已经是走过的位置 就
+	重新生成两个行与列随机值
 	* 
 	*/
-	int Computer_Step_MoveRow = 0;
-	int Computer_Step_MoveCol = 0;
+
+
+
 	while (1)
 	{
+		
+		Computer_Step_MoveRow = 0;
+		Computer_Step_MoveCol = 0;
+		
 		Computer_Step_MoveRow = rand() % Curr_BoradRow;
 		Computer_Step_MoveCol = rand() % Curr_BoradCol;
 		if ((Computer_Step_MoveRow <= Curr_BoradRow && Computer_Step_MoveRow >= 0) && (Computer_Step_MoveCol <= Curr_BoradCol && Computer_Step_MoveCol >= 0))
@@ -176,7 +193,7 @@ _Bool ComputerMove(char board[MAX_ROW][MAX_COL], short Curr_BoradRow, short Curr
 			if (board[Computer_Step_MoveRow][Computer_Step_MoveCol] == ' ')
 			{
 				printf("-> 电脑输入中... <-\n     ......\n");
-				Sleep(700);
+				Sleep(500);
 				system("cls");
 				board[Computer_Step_MoveRow][Computer_Step_MoveCol] = '*';
 				return TRUE;
@@ -264,21 +281,28 @@ char WhoIsWin(char board[MAX_ROW][MAX_COL], short Curr_BoradRow, short Curr_Bora
 
 		//判断右斜列是否一样	//02 11 20..相等 就SameRightOblique+1 如果SameRightOblique=行数-1 代表有人赢了
 		int SameRightOblique = 0;
-		for (int i = 0, j = Curr_BoradCol - 1; i<=j; i++, j--)
+		for (int i = 0, j = Curr_BoradCol-1; i<=j; i++, j--)
 		{
-			if (board[i][j] == board[i + 1][j - 1] && board[i + 1][j - 1] != ' ')
+			
+			if (i + 1 <= Curr_BoradRow && j - 1 >= 0)
 			{
-				SameRightOblique++;
-				if (SameRightOblique == Curr_BoradRow - 1)
+				if (board[i][j] == board[i + 1][j - 1] && board[i][j] != ' ')
 				{
-					return board[0][Curr_BoradCol - 1];
+					SameRightOblique++;
+					if (SameRightOblique == Curr_BoradRow - 1)
+					{
+						return board[0][Curr_BoradCol - 1];
+
+					}
+				}
+				else
+				{
+					SameRightOblique = 0;
+					break;
 				}
 			}
-			else
-			{
-				SameRightOblique = 0;
-				break;
-			}
+			
+			
 		}
 
 
@@ -307,6 +331,15 @@ int BoardIsFull(char board[MAX_ROW][MAX_COL], short Curr_BoradRow, short Curr_Bo
 	
 	return 1;
 }
+
+
+void DiskplayComputer_Step(int Computer_Step_MoveRow, int Computer_Step_MoveCol)
+{
+
+	printf("电脑(%c)下在了\n-> %d行 <-\n -> %d列 <-\n", CharForPlayerOrComputer[isPlayerFirstMove], Computer_Step_MoveRow, Computer_Step_MoveCol);
+
+}
+
 
 
 
