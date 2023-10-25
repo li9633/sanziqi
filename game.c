@@ -336,7 +336,7 @@ int BoardIsFull(char board[MAX_ROW][MAX_COL], short Curr_BoradRow, short Curr_Bo
 void DiskplayComputer_Step(int Computer_Step_MoveRow, int Computer_Step_MoveCol)
 {
 
-	printf("电脑(%c)下在了\n-> %d行 <-\n -> %d列 <-\n", CharForPlayerOrComputer[isPlayerFirstMove], Computer_Step_MoveRow, Computer_Step_MoveCol);
+	printf("电脑(%c)下在了\n-> %d行 <-\n-> %d列 <-\n", CharForPlayerOrComputer[isPlayerFirstMove], Computer_Step_MoveRow + 1, Computer_Step_MoveCol + 1);
 
 }
 
